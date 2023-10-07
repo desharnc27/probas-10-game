@@ -1,10 +1,8 @@
-from math import factorial as fact, comb
+# The config of a hand is an array of int containing the number of cards of each suit in the hand.
+# The array is sorted in descending order.
 
-# Number of colors. It's also the number of players.
-NB_SUITS = 4
-
-# Number of cards per color. It's also the number of cards in one player's hand
-NB_NUMS = 10
+from cst import NB_NUMS, NB_SUITS
+from math import comb, factorial as fact
 
 
 def generate_configs(nb_cards=NB_NUMS,
@@ -25,8 +23,7 @@ def generate_configs(nb_cards=NB_NUMS,
     return res
 
 
-def count(config):
-    # Step 1: count the number of ways to match the colors to the config's values.
+def nb_color_distributions(config):
     res = fact(NB_SUITS)
     idem_streak = 1
     idx = 0
@@ -38,27 +35,14 @@ def count(config):
             idem_streak = 1
         idx = idx + 1
     res = res // fact(idem_streak) // fact(NB_SUITS - len(config))
+    return res
+
+
+def count(config):
+    # Step 1: count the number of ways to match the colors to the config's values.
+    res = nb_color_distributions(config)
 
     # Step 2: multiply by the number of ways to choose the combination of numerals for each color
     for i in config:
         res = res * comb(NB_NUMS, i)
     return res
-
-
-def print_configs_with_probs():
-    configs = generate_configs()
-    total_count = comb(NB_NUMS * NB_SUITS, NB_NUMS)
-    total_count_debug = 0
-
-    for config in configs:
-        amount = count(config)
-        print("{0}: {1}/{2} = {3}".format(config, amount, total_count, amount / total_count))
-        total_count_debug = total_count_debug + amount
-
-    if total_count_debug == total_count:
-        print("Count of all configs successfully calculated.")
-    else:
-        print("Warning: total count does not match.")
-
-
-print_configs_with_probs()
