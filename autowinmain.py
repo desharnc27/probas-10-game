@@ -63,7 +63,7 @@ def verify_calculations():
         print("Calculations for blind-autowin work perfectly")
         return True
     else:
-        print("Error: calculations blind-autowin counting do not count perfectly")
+        print("Error: autowin calculations have some incoherence.")
         print("nb_of_blind_autowin_hands(): {0}".format(nbawh))
         print("nb_of_blind_autowin_hands_if_sansatout_authorized(): {0}".format(nbawhisa))
         print("Anticipated difference: {0}".format(nbawhisa - nbawh))
