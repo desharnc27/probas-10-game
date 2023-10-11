@@ -1,5 +1,6 @@
-# The goal of this file is to count how many hands are such that you win,
-# no matter what's the other players distributions
+# The goal of this file is to count how many hands are such that you win all tricks,
+# no matter what's the other players distributions.
+# We assume that you have the chance to bet and win the atout choice.
 
 from math import comb
 from cst import NB_NUMS, NB_SUITS, TOTAL_NB_HANDS
@@ -66,8 +67,8 @@ def verify_calculations():
         print("Error: autowin calculations have some incoherence.")
         print("nb_of_blind_autowin_hands(): {0}".format(nbawh))
         print("nb_of_blind_autowin_hands_if_sansatout_authorized(): {0}".format(nbawhisa))
-        print("Anticipated difference: {0}".format(nbawhisa - nbawh))
-        print("Obtained difference: {0}".format(diff))
+        print("Anticipated difference: {0}".format(diff))
+        print("Obtained difference: {0}".format(nbawhisa - nbawh))
         return False
 
 

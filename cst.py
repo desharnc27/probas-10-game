@@ -8,5 +8,5 @@ NB_SUITS = 4
 # Number of cards per color. It's also the number of cards in one player's hand
 NB_NUMS = 10
 
-# Number of cards per color. It's also the number of cards in one player's hand
+# Number of possible hands
 TOTAL_NB_HANDS = comb(NB_NUMS * NB_SUITS, NB_NUMS)
