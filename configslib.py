@@ -1,8 +1,9 @@
 # The config of a hand is an array of int containing the number of cards of each suit in the hand.
 # The array is sorted in descending order.
 
-from cst import NB_NUMS, NB_SUITS
 from math import comb, factorial as fact
+
+from cst import NB_NUMS, NB_SUITS
 
 
 def generate_configs(nb_cards=NB_NUMS,

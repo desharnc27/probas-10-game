@@ -3,9 +3,10 @@
 # We assume that you have the chance to bet and win the atout choice.
 
 from math import comb
+
+import configslib
 from cst import NB_NUMS, NB_SUITS, TOTAL_NB_HANDS
 from genlib import rational_description as rdesc
-import configslib
 
 
 def nb_of_blind_autowin_hands():
@@ -33,14 +34,14 @@ def nb_of_blind_autowin_hands_if_sansatout_authorized():
     # Count hands containing only maitre cards.
     res = comb(NB_NUMS + NB_SUITS - 1, NB_NUMS)
 
-    # Add hands containting non-maitre cards, but in which these non-maitre cards
+    # Add hands containing non-maitre cards, but in which these non-maitre cards
     # will surely become maitre once their suit is emptied by force
     nb_non_atout_max = (NB_NUMS - 1) // 2
     for nb_non_atout in range(0, nb_non_atout_max + 1):
         # Number of ways to choose the atout : NB_SUITS
 
         # Number of ways to choose the atout-cards that don't need to be maitre since suit will be emptied before
-        # Note: we removed the one that contains all maitre cards, which is already counted before
+        # About the -1: we removed the one that contains all maitre cards, which is already counted before
         free_atout_ways = comb(NB_NUMS - nb_non_atout, nb_non_atout) - 1
 
         # Number of ways to choose the non-atout cards
@@ -56,8 +57,10 @@ def verify_calculations():
     diff = 0
     configs = configslib.generate_configs()
     for config in configs:
+        # We consider the hands with all maitre cards, but less than half of the cards in one suit
+        # These are the autowinnable hands without atout, but not with atout
         if 2 * config[0] >= NB_NUMS:
-            continue  # Ignore autowinnable hands with atout
+            continue
         nb_color_dists = configslib.nb_color_distributions(config)
         diff = diff + nb_color_dists
     if diff + nbawh == nbawhisa:
